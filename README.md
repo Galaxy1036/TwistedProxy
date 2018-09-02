@@ -8,7 +8,7 @@ The proxy need some external dependencies to run:
 2. Setup **frida-server** on your device, here is a guide: [https://www.frida.re/docs/android/](https://www.frida.re/docs/android/)
 3. Push fake\_dev\_urandom file on your device (at /data/data/com.supercell.clashroyale)
 4. Install the modded version of **tweetnacl**. Just run `python setup.py install` in TweetnaclMod directory to install it
-5. Run `python -m pip install -r requirements` to install the others dependencies
+5. Run `python -m pip install -r requirements.txt` to install the others dependencies
 
 ### How to use it ?
 
