@@ -1,14 +1,13 @@
 ## TwistedProxy
-**TwistedProxy** is a python proxy that aims to capture, decrypt & save Clash Royale game traffic. This is an adapted version for v2.3 that use a workaround based on frida since Supercell enforced their game protection which make the serverKey patching impossible.
+**TwistedProxy** is a python proxy that aims to capture, decrypt & save Clash Royale game traffic. This is an adapted version for v2.4 that use a workaround based on frida since Supercell enforced their game protection which make the serverKey patching impossible.
 
 ### Setup the proxy
 The proxy need some external dependencies to run:
 
 1. Install **ADB** and add it to your path
 2. Setup **frida-server** on your device, here is a guide: [https://www.frida.re/docs/android/](https://www.frida.re/docs/android/)
-3. Push fake\_dev\_urandom file on your device (at /data/data/com.supercell.clashroyale)
-4. Install the modded version of **tweetnacl**. Just run `python setup.py install` in TweetnaclMod directory to install it
-5. Run `python -m pip install -r requirements.txt` to install the others dependencies
+3. Install the modded version of **tweetnacl**. Just run `python setup.py install` in TweetnaclMod directory to install it
+4. Run `python -m pip install -r requirements.txt` to install the others dependencies
 
 ### How to use it ?
 
@@ -24,7 +23,7 @@ However the proxy accept some optionals arguments that are:
 
 ### Credits
 
-[Misha](https://github.com/MISHA-CRDEV) - For the crypto workaround and help with the frida script
+[Misha](https://github.com/MISHA-CRDEV) - For the crypto workaround
 
 ### PS
 

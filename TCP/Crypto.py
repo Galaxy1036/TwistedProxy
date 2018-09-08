@@ -16,7 +16,7 @@ class Crypto:
     def __init__(self, server_key):
         self.session_key = None
         self.server_key = bytes.fromhex(server_key)
-        self.client_sk = bytes.fromhex('0000000000000000000000000000000000000000000000000000000000000000')
+        self.client_sk = bytes.fromhex('85980ab6075cc197ab8de0faba3c699682b459979365435144482f5ebae82145')
         self.client_pk = crypto_scalarmult_base(self.client_sk)
         self.nonce = None
         self.rnonce = None
@@ -45,7 +45,7 @@ class Crypto:
                 print('[*] It look like frida didn\'t attached properly to your device since client pk don\'t match with the static one !')
                 os._exit(0)
 
-            payload = payload[32:]  # Skip the pk since we already know it
+            payload = payload[32:]  # skip the pk since we already know it
 
             self.nonce = Nonce(clientKey=self.client_pk, serverKey=self.server_key)
             self.s = crypto_box_beforenm(self.server_key, self.client_sk)
@@ -63,7 +63,7 @@ class Crypto:
         if packet_id == 20100 or (packet_id == 20103 and not self.session_key):
             return payload
 
-        elif packet_id in (20103, 20677):
+        elif packet_id in (20103, 24662):
             nonce = Nonce(self.snonce, self.client_pk, self.server_key)
             payload = bytes(self.rnonce) + self.k + payload
             encrypted = crypto_box_afternm(payload, bytes(nonce), self.s)
@@ -81,7 +81,7 @@ class Crypto:
         elif packet_id == 20103 and not self.session_key:
             return payload
 
-        elif packet_id in (20103, 20677):
+        elif packet_id in (20103, 24662):
             nonce = Nonce(self.snonce, self.client_pk, self.server_key)
 
             decrypted = crypto_box_open_afternm(payload, bytes(nonce), self.s)

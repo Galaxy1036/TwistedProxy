@@ -6,5 +6,5 @@ packet_enum = {
                 10101: "Login",
                 20100: "ServerHello",
                 20103: "LoginFailed",
-                20677: "LoginOK"
+                24662: "LoginOK"
                 }
