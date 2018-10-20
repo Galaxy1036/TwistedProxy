@@ -24,6 +24,8 @@ class ServerProtocol(packetReceiver, Protocol):
 
     def connectionLost(self, reason):
         print('[*] Client disconnected !')
+        if self.client:
+            self.client.transport.loseConnection()
 
     def processPacket(self, packet_id, data):
 
@@ -41,7 +43,7 @@ class ServerProtocol(packetReceiver, Protocol):
             print(hexdump.hexdump(decrypted))
 
         if self.factory.args.replay:
-            self.factory.replay.save_packet(packet_name, data[:7] + decrypted)
+            self.factory.replay.save_tcp_packet(packet_name, data[:7] + decrypted)
 
         encrypted = self.crypto.encrypt_client_packet(packet_id, decrypted)
         payload = packet_id.to_bytes(2, 'big') + len(encrypted).to_bytes(3, 'big') + data[5:7] + encrypted

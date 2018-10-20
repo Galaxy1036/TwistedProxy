@@ -3,7 +3,7 @@
 from os import urandom
 
 from hashlib import blake2b
-from tweetnaclMod._tweetnacl import crypto_box_NONCEBYTES
+from TCP._tweetnacl import crypto_box_NONCEBYTES
 
 
 class Nonce:

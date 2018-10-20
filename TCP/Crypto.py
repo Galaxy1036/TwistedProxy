@@ -2,7 +2,7 @@
 
 import os
 
-from tweetnaclMod._tweetnacl import (
+from TCP._tweetnacl import (
                             crypto_box_afternm,
                             crypto_box_beforenm,
                             crypto_scalarmult_base,
@@ -33,6 +33,9 @@ class Crypto:
             encrypted = crypto_box_afternm(payload, bytes(self.nonce), self.s)
             return self.client_pk + encrypted
 
+        elif self.snonce is None:
+            return payload
+
         else:
             return crypto_box_afternm(payload, bytes(self.snonce), self.k)
 
@@ -46,7 +49,6 @@ class Crypto:
                 os._exit(0)
 
             payload = payload[32:]  # skip the pk since we already know it
-
             self.nonce = Nonce(clientKey=self.client_pk, serverKey=self.server_key)
             self.s = crypto_box_beforenm(self.server_key, self.client_sk)
 
@@ -54,6 +56,9 @@ class Crypto:
             self.snonce = Nonce(decrypted[24:48])
 
             return decrypted[48:]
+
+        elif self.snonce is None:
+            return payload
 
         else:
             self.snonce.increment()

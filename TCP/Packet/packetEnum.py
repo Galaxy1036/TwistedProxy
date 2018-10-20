@@ -12,6 +12,7 @@ packet_enum = {
                 20100: "ServerHello",
                 20103: "LoginFailed",
                 24662: "LoginOK",
+                22006: "OwnHomeData",
                 20247: "KeepAliveOk",
                 25612: "SectorState",
                 27691: "GoogleAccountAlreadyBound"

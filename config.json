@@ -1,5 +1,7 @@
 {
 	"Port": 9339,
+	"UDPPort": 9339,
+	"UDPHost": "127.0.0.1",
 	"Hostname": "game.clashroyaleapp.com",
 	"ServerKey": "4dd5e7bf4202cf5f032e4c4890ff52f9ab94ab7ca40dc963dde5e96803cf067c",
 	"ReplayDirectory": "Replay"

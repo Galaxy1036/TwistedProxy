@@ -4,26 +4,36 @@
 ### Setup the proxy
 The proxy need some external dependencies to run:
 
-1. Install **ADB** and add it to your path
-2. Setup **frida-server** on your device, here is a guide: [https://www.frida.re/docs/android/](https://www.frida.re/docs/android/)
-3. Install the modded version of **tweetnacl**. Just run `python setup.py install` in TweetnaclMod directory to install it
-4. Run `python -m pip install -r requirements.txt` to install the others dependencies
+**If you want the frida script to be injected at proxy runtime:**
+
+>-   Install **ADB** and add it to your path
+>-   Setup **frida-server** on your device if you want to run the frida script at the proxy launch, here is a guide: [https://www.frida.re/docs/android/](https://www.frida.re/docs/android/)
+
+1. Install the modded version of **tweetnacl**. Just run `python setup.py build_ext -b ../TCP` in TweetnaclMod directory to install it
+1.  Run `python -m pip install -r requirements.txt` to install the others dependencies
 
 ### How to use it ?
 
 To start the proxy you will just have to run the following command:
 > python Main.py
 
-**Note**: You don't need to start the game, the proxy will do it itself.
 
 However the proxy accept some optionals arguments that are:
 
+* `-f`: if specified, the game will be automatically spawned and the frida script will be injected at proxy runtime
 * `-v`: if specified, the proxy will be run in verbose mode that basically output packets hexdump in terminal
-* `-r`: if specified, all packets will be saved in the repository you've set in config.json (ReplayDirectory key).
+* `-r`: if specified, all packets will be saved in the repository you've set in config.json (ReplayDirectory key)
+* `-u`: if specified UDP proxy will be launched too
+
+### UDP Proxy
+
+Before running the UDP Proxy you should set the local ip where the proxy is running in config.json (UDPHost key). 
 
 ### Credits
 
-[Misha](https://github.com/MISHA-CRDEV) - For the crypto workaround
+[Misha](https://github.com/MISHA-CRDEV) - For the crypto workaround  
+[iGio](https://github.com/iGio90) - For all his amazing contribution to the RE community of the game  
+**Nameless** - For the huge help and explanations about the UDP protocol
 
 ### PS
 

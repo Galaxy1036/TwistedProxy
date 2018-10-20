@@ -2,7 +2,6 @@
 
 import hexdump
 
-
 from TCP.PacketReceiver import packetReceiver
 from TCP.Packet.packetEnum import packet_enum
 from twisted.internet.protocol import Protocol
@@ -22,6 +21,7 @@ class ClientProtocol(packetReceiver, Protocol):
 
     def connectionLost(self, reason):
         print('[*] Server closed the connection !')
+        self.server.transport.loseConnection()
 
     def processPacket(self, packet_id, data):
         packet_name = packet_enum.get(packet_id, packet_id)
@@ -30,11 +30,16 @@ class ClientProtocol(packetReceiver, Protocol):
 
         decrypted = self.crypto.decrypt_server_packet(packet_id, data[7:])
 
+        if packet_id == 27579 and self.server.factory.args.udp:
+            client_host = self.server.transport.getPeer().host
+
+            decrypted = self.server.factory.udp_protocol.build_udp_info_packet(client_host, decrypted)
+
         if self.server.factory.args.verbose and decrypted:
             print(hexdump.hexdump(decrypted))
 
         if self.server.factory.args.replay:
-            self.server.factory.replay.save_packet(packet_name, data[:7] + decrypted)
+            self.server.factory.replay.save_tcp_packet(packet_name, data[:7] + decrypted)
 
         encrypted = self.crypto.encrypt_server_packet(packet_id, decrypted)
         payload = packet_id.to_bytes(2, 'big') + len(encrypted).to_bytes(3, 'big') + data[5:7] + encrypted
